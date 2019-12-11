@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sheep.excel.mapper.FormulaMapper" >
+  <resultMap id="BaseResultMap" type="com.sheep.excel.entity.Formula" >
+    <id column="formulaid" property="formulaid" jdbcType="INTEGER" />
+    <result column="ffid" property="ffid" jdbcType="INTEGER" />
+    <result column="formula" property="formula" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    formulaid, ffid, formula
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sheep.excel.entity.FormulaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from formula
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from formula
+    where formulaid = #{formulaid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from formula
+    where formulaid = #{formulaid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sheep.excel.entity.FormulaExample" >
+    delete from formula
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sheep.excel.entity.Formula" >
+    insert into formula (formulaid, ffid, formula
+      )
+    values (#{formulaid,jdbcType=INTEGER}, #{ffid,jdbcType=INTEGER}, #{formula,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sheep.excel.entity.Formula" >
+    insert into formula
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="formulaid != null" >
+        formulaid,
+      </if>
+      <if test="ffid != null" >
+        ffid,
+      </if>
+      <if test="formula != null" >
+        formula,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="formulaid != null" >
+        #{formulaid,jdbcType=INTEGER},
+      </if>
+      <if test="ffid != null" >
+        #{ffid,jdbcType=INTEGER},
+      </if>
+      <if test="formula != null" >
+        #{formula,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sheep.excel.entity.FormulaExample" resultType="java.lang.Integer" >
+    select count(*) from formula
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update formula
+    <set >
+      <if test="record.formulaid != null" >
+        formulaid = #{record.formulaid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ffid != null" >
+        ffid = #{record.ffid,jdbcType=INTEGER},
+      </if>
+      <if test="record.formula != null" >
+        formula = #{record.formula,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update formula
+    set formulaid = #{record.formulaid,jdbcType=INTEGER},
+      ffid = #{record.ffid,jdbcType=INTEGER},
+      formula = #{record.formula,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sheep.excel.entity.Formula" >
+    update formula
+    <set >
+      <if test="ffid != null" >
+        ffid = #{ffid,jdbcType=INTEGER},
+      </if>
+      <if test="formula != null" >
+        formula = #{formula,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where formulaid = #{formulaid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sheep.excel.entity.Formula" >
+    update formula
+    set ffid = #{ffid,jdbcType=INTEGER},
+      formula = #{formula,jdbcType=VARCHAR}
+    where formulaid = #{formulaid,jdbcType=INTEGER}
+  </update>
+</mapper>

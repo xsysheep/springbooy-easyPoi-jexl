@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sheep.excel.mapper.FactorFileMapper" >
+  <resultMap id="BaseResultMap" type="com.sheep.excel.entity.FactorFile" >
+    <id column="ffid" property="ffid" jdbcType="INTEGER" />
+    <id column="shipping" property="shipping" jdbcType="DECIMAL" />
+    <result column="factor_file_name" property="factorFileName" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="route" property="route" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="cmr" property="cmr" jdbcType="DECIMAL" />
+    <result column="duty" property="duty" jdbcType="DECIMAL" />
+    <result column="freight" property="freight" jdbcType="DECIMAL" />
+    <result column="broker_fee" property="brokerFee" jdbcType="DECIMAL" />
+    <result column="insurance" property="insurance" jdbcType="DECIMAL" />
+    <result column="local_uplift" property="localUplift" jdbcType="DECIMAL" />
+    <result column="distributor" property="distributor" jdbcType="DECIMAL" />
+    <result column="acsl_bp" property="acslBp" jdbcType="DECIMAL" />
+    <result column="vat" property="vat" jdbcType="DECIMAL" />
+    <result column="global" property="global" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ffid, shipping, factor_file_name, create_id, create_time, route, country, region, 
+    category, cmr, duty, freight, broker_fee, insurance, local_uplift, distributor, acsl_bp, 
+    vat, global, comment
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sheep.excel.entity.FactorFileExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from factor_file
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sheep.excel.entity.FactorFileKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from factor_file
+    where ffid = #{ffid,jdbcType=INTEGER}
+      and shipping = #{shipping,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.sheep.excel.entity.FactorFileKey" >
+    delete from factor_file
+    where ffid = #{ffid,jdbcType=INTEGER}
+      and shipping = #{shipping,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sheep.excel.entity.FactorFileExample" >
+    delete from factor_file
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sheep.excel.entity.FactorFile" >
+    insert into factor_file (ffid, shipping, factor_file_name, 
+      create_id, create_time, route, 
+      country, region, category, 
+      cmr, duty, freight, 
+      broker_fee, insurance, local_uplift, 
+      distributor, acsl_bp, vat, 
+      global, comment)
+    values (#{ffid,jdbcType=INTEGER}, #{shipping,jdbcType=DECIMAL}, #{factorFileName,jdbcType=VARCHAR}, 
+      #{createId,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{route,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, 
+      #{cmr,jdbcType=DECIMAL}, #{duty,jdbcType=DECIMAL}, #{freight,jdbcType=DECIMAL}, 
+      #{brokerFee,jdbcType=DECIMAL}, #{insurance,jdbcType=DECIMAL}, #{localUplift,jdbcType=DECIMAL}, 
+      #{distributor,jdbcType=DECIMAL}, #{acslBp,jdbcType=DECIMAL}, #{vat,jdbcType=DECIMAL}, 
+      #{global,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sheep.excel.entity.FactorFile" >
+    insert into factor_file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ffid != null" >
+        ffid,
+      </if>
+      <if test="shipping != null" >
+        shipping,
+      </if>
+      <if test="factorFileName != null" >
+        factor_file_name,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="route != null" >
+        route,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="cmr != null" >
+        cmr,
+      </if>
+      <if test="duty != null" >
+        duty,
+      </if>
+      <if test="freight != null" >
+        freight,
+      </if>
+      <if test="brokerFee != null" >
+        broker_fee,
+      </if>
+      <if test="insurance != null" >
+        insurance,
+      </if>
+      <if test="localUplift != null" >
+        local_uplift,
+      </if>
+      <if test="distributor != null" >
+        distributor,
+      </if>
+      <if test="acslBp != null" >
+        acsl_bp,
+      </if>
+      <if test="vat != null" >
+        vat,
+      </if>
+      <if test="global != null" >
+        global,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ffid != null" >
+        #{ffid,jdbcType=INTEGER},
+      </if>
+      <if test="shipping != null" >
+        #{shipping,jdbcType=DECIMAL},
+      </if>
+      <if test="factorFileName != null" >
+        #{factorFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="route != null" >
+        #{route,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="cmr != null" >
+        #{cmr,jdbcType=DECIMAL},
+      </if>
+      <if test="duty != null" >
+        #{duty,jdbcType=DECIMAL},
+      </if>
+      <if test="freight != null" >
+        #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="brokerFee != null" >
+        #{brokerFee,jdbcType=DECIMAL},
+      </if>
+      <if test="insurance != null" >
+        #{insurance,jdbcType=DECIMAL},
+      </if>
+      <if test="localUplift != null" >
+        #{localUplift,jdbcType=DECIMAL},
+      </if>
+      <if test="distributor != null" >
+        #{distributor,jdbcType=DECIMAL},
+      </if>
+      <if test="acslBp != null" >
+        #{acslBp,jdbcType=DECIMAL},
+      </if>
+      <if test="vat != null" >
+        #{vat,jdbcType=DECIMAL},
+      </if>
+      <if test="global != null" >
+        #{global,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sheep.excel.entity.FactorFileExample" resultType="java.lang.Integer" >
+    select count(*) from factor_file
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update factor_file
+    <set >
+      <if test="record.ffid != null" >
+        ffid = #{record.ffid,jdbcType=INTEGER},
+      </if>
+      <if test="record.shipping != null" >
+        shipping = #{record.shipping,jdbcType=DECIMAL},
+      </if>
+      <if test="record.factorFileName != null" >
+        factor_file_name = #{record.factorFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createId != null" >
+        create_id = #{record.createId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.route != null" >
+        route = #{record.route,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null" >
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.region != null" >
+        region = #{record.region,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null" >
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmr != null" >
+        cmr = #{record.cmr,jdbcType=DECIMAL},
+      </if>
+      <if test="record.duty != null" >
+        duty = #{record.duty,jdbcType=DECIMAL},
+      </if>
+      <if test="record.freight != null" >
+        freight = #{record.freight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.brokerFee != null" >
+        broker_fee = #{record.brokerFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.insurance != null" >
+        insurance = #{record.insurance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.localUplift != null" >
+        local_uplift = #{record.localUplift,jdbcType=DECIMAL},
+      </if>
+      <if test="record.distributor != null" >
+        distributor = #{record.distributor,jdbcType=DECIMAL},
+      </if>
+      <if test="record.acslBp != null" >
+        acsl_bp = #{record.acslBp,jdbcType=DECIMAL},
+      </if>
+      <if test="record.vat != null" >
+        vat = #{record.vat,jdbcType=DECIMAL},
+      </if>
+      <if test="record.global != null" >
+        global = #{record.global,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comment != null" >
+        comment = #{record.comment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update factor_file
+    set ffid = #{record.ffid,jdbcType=INTEGER},
+      shipping = #{record.shipping,jdbcType=DECIMAL},
+      factor_file_name = #{record.factorFileName,jdbcType=VARCHAR},
+      create_id = #{record.createId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=VARCHAR},
+      route = #{record.route,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      cmr = #{record.cmr,jdbcType=DECIMAL},
+      duty = #{record.duty,jdbcType=DECIMAL},
+      freight = #{record.freight,jdbcType=DECIMAL},
+      broker_fee = #{record.brokerFee,jdbcType=DECIMAL},
+      insurance = #{record.insurance,jdbcType=DECIMAL},
+      local_uplift = #{record.localUplift,jdbcType=DECIMAL},
+      distributor = #{record.distributor,jdbcType=DECIMAL},
+      acsl_bp = #{record.acslBp,jdbcType=DECIMAL},
+      vat = #{record.vat,jdbcType=DECIMAL},
+      global = #{record.global,jdbcType=VARCHAR},
+      comment = #{record.comment,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sheep.excel.entity.FactorFile" >
+    update factor_file
+    <set >
+      <if test="factorFileName != null" >
+        factor_file_name = #{factorFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="route != null" >
+        route = #{route,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="cmr != null" >
+        cmr = #{cmr,jdbcType=DECIMAL},
+      </if>
+      <if test="duty != null" >
+        duty = #{duty,jdbcType=DECIMAL},
+      </if>
+      <if test="freight != null" >
+        freight = #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="brokerFee != null" >
+        broker_fee = #{brokerFee,jdbcType=DECIMAL},
+      </if>
+      <if test="insurance != null" >
+        insurance = #{insurance,jdbcType=DECIMAL},
+      </if>
+      <if test="localUplift != null" >
+        local_uplift = #{localUplift,jdbcType=DECIMAL},
+      </if>
+      <if test="distributor != null" >
+        distributor = #{distributor,jdbcType=DECIMAL},
+      </if>
+      <if test="acslBp != null" >
+        acsl_bp = #{acslBp,jdbcType=DECIMAL},
+      </if>
+      <if test="vat != null" >
+        vat = #{vat,jdbcType=DECIMAL},
+      </if>
+      <if test="global != null" >
+        global = #{global,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ffid = #{ffid,jdbcType=INTEGER}
+      and shipping = #{shipping,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sheep.excel.entity.FactorFile" >
+    update factor_file
+    set factor_file_name = #{factorFileName,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      route = #{route,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      cmr = #{cmr,jdbcType=DECIMAL},
+      duty = #{duty,jdbcType=DECIMAL},
+      freight = #{freight,jdbcType=DECIMAL},
+      broker_fee = #{brokerFee,jdbcType=DECIMAL},
+      insurance = #{insurance,jdbcType=DECIMAL},
+      local_uplift = #{localUplift,jdbcType=DECIMAL},
+      distributor = #{distributor,jdbcType=DECIMAL},
+      acsl_bp = #{acslBp,jdbcType=DECIMAL},
+      vat = #{vat,jdbcType=DECIMAL},
+      global = #{global,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR}
+    where ffid = #{ffid,jdbcType=INTEGER}
+      and shipping = #{shipping,jdbcType=DECIMAL}
+  </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * FROM  factor_file
+  </select>
+</mapper>
