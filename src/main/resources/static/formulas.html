@@ -23,23 +23,43 @@
             width: 100px;
             height: 30px;
         }
+        .select_ww{
+            width: 200px;
+            height: 30px;
+        }
     </style>
     <script>
         //写公式
         function clickbutton(newvalue) {
-            var value =  $("input[name=formula_ff]").val();
-            $("input[name=formula_ff]").attr("value",value+newvalue);
+            var value =  $("input[name=formula]").val();
+            $("input[name=formula]").prop("value",value+newvalue);
         }
-        function clear(){
-            $("input[name=formula_ff]").attr("value","3");
+        function xx(value){
+            $("input[name=formula]").prop("value","");
+        }
+        function chooseSelect(){
+            var val =  $("#selct option:selected").val();
+            alert(val);
+            $.ajax({
+                type:"POST",
+                url:"factor/findOne?ffid="+val,
+                dataType:"json",
+                success:function(msg){
+                    $("[name=VAT_input]").prop("value",msg.vat);
+                    $("[name=shipping_input]").prop("value",msg.shipping);
+                    $("[name=ACSLBPmargin_input]").prop("value",msg.acslBp);
+
+                }
+            })
         }
     </script>
 </head>
 <body>
-    <form>
+    <form method="post" action="/formula/save" >
         formula
-        <input class="formula_ff" name="formula_ff" type="text" value="1" >
-        <input onclick="clear()" class="formula_button" type="button" value="clear">
+        <input class="formula_ff" name="formula" type="text" value="" >
+        <input onclick="xx(value)"  class="formula_button" type="button" value="clear">
+        <input name="ffid" hidden="hidden" value="1">
         <input class="formula_button" type="submit" value="save">
         <br>
         <!--<input class="button_ff" type="button" value="Base price"><input class="button_ff" type="button" value="Lenovo CLF%">
@@ -57,37 +77,37 @@
     </form>
     <table>
         <tr >
-            <td height="35px" width="155px"><input class="button_ff" type="button" value="Base price"></td>
-            <td width="155px"><input class="button_ff" type="button" value="Lenovo CLF%"></td>
+            <td height="35px" width="155px"><input onclick="clickbutton(value)" class="button_ff" type="button" value="Baseprice"></td>
+            <td width="155px"><input onclick="clickbutton(value)" class="button_ff" type="button" value="LenovoCLF"></td>
             <td align="center" width="155px"> Base price</td>
             <td width="155px"><input class="input_ff" type="text" value=""></td>
             <td align="center" width="155px">Lenovo CLF%</td>
             <td width="155px"><input class="input_ff" type="text" value=""></td>
         </tr>
         <tr>
-            <td width="155px"><input onclick="clickbutton(value)" class="button_ff" type="button" value="Lenovo shipping cost"></td>
-            <td width="155px"><input class="button_ff" type="button" value="ACSL/BP CLF%"></td>
+            <td width="155px"><input onclick="clickbutton(value)" class="button_ff" type="button" value="Lenovoshippingcost"></td>
+            <td width="155px"><input onclick="clickbutton(value)" class="button_ff" type="button" value="ACSLBPCLF"></td>
             <td align="center" width="155px">Lenovo shipping cost</td>
-            <td width="155px"><input class="input_ff" type="text" value=""></td>
+            <td width="155px"><input name="shipping_input" class="input_ff" type="text" value=""></td>
             <td align="center" width="155px">ACSL/BP CLF%</td>
-            <td width="155px"><input class="input_ff" type="text" value=""></td>
+            <td width="155px"><input name="ACSL/BP CLF%_input" class="input_ff" type="text" value=""></td>
         </tr>
         <tr>
-            <td width="155px"><input class="button_ff" type="button" value="ACSL shipping cost"></td>
-            <td width="155px"><input class="button_ff" type="button" value="ACSL/BP margin%">
+            <td width="155px"><input onclick="clickbutton(value)" class="button_ff" type="button" value="ACSLshippingcost"></td>
+            <td width="155px"><input onclick="clickbutton(value)" class="button_ff" type="button" value="ACSLBPmargin">
              </td>
             <td align="center" width="155px"> ACSL shipping cost</td>
             <td width="155px"><input  class="input_ff" type="text" value=""></td>
             <td align="center" width="155px"> ACSL/BP margin%</td>
-            <td width="155px"><input class="input_ff" type="text" value=""></td>
+            <td width="155px"><input name="ACSLBPmargin_input" class="input_ff" type="text" value=""></td>
         </tr>
         <tr>
-            <td width="155px"><input class="button_ff" type="button" value="GEO Uplift%"></td>
-            <td width="155px"><input class="button_ff" type="button" value="VAT%"></td>
+            <td width="155px"><input onclick="clickbutton(value)" class="button_ff" type="button" value="GEOUplift"></td>
+            <td width="155px"><input onclick="clickbutton(value)" class="button_ff" type="button" value="VAT"></td>
             <td align="center" width="155px" >GEO Uplift%</td>
             <td width="155px"><input class="input_ff" type="text" value=""></td>
             <td align="center" width="155px"> VAT%</td>
-            <td width="155px"><input class="input_ff" type="text" value=""></td>
+            <td width="155px"><input name="VAT_input" class="input_ff" type="text" value=""></td>
         </tr>
         <tr>
             <td width="155px"></td>
@@ -98,6 +118,13 @@
             <td width="155px"><input class="input_ff" type="button" value="validate"></td>
         </tr>
     </table>
+    <select class="select_ww" onchange="chooseSelect()" id="selct" >
+        <option value="0">选择地区</option>
+        <option value="1">Hong Kong</option>
+        <option value="2">Japan</option>
+        <option value="3"></option>
+        <option value="4"></option>
+    </select>
 
 </body>
 </html>
